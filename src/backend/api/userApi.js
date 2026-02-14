@@ -205,6 +205,20 @@
                 user.updatedAt = new Date().toISOString();
                 userDB[normalizedEmail] = user; // Ensure the object is updated in the map
                 saveUserDB(userDB);
+
+                // Update session storage if the logged-in user matches
+                try {
+                    const sessionUserStr = sessionStorage.getItem("foundira_user");
+                    if (sessionUserStr) {
+                        const sessionUser = JSON.parse(sessionUserStr);
+                        if (sessionUser.email && sessionUser.email.toLowerCase().trim() === normalizedEmail) {
+                            sessionUser.avatar = url;
+                            sessionStorage.setItem("foundira_user", JSON.stringify(sessionUser));
+                        }
+                    }
+                } catch (e) {
+                    console.error("Failed to update session storage", e);
+                }
             }
         }
 
