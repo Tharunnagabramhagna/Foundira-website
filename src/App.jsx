@@ -53,7 +53,17 @@ function IntroAnimationRoute() {
   return <window.IntroAnimation onComplete={handleComplete} />;
 }
 
-function App() {
+const AppContainer = () => {
+  const [ready, setReady] = React.useState(false);
+
+  React.useEffect(() => {
+    // Small delay to ensure all Babel-transpiled scripts are ready
+    const timer = setTimeout(() => setReady(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!ready) return null;
+
   return (
     <window.ThemeProvider>
       <window.AuthProvider>
@@ -75,5 +85,23 @@ function App() {
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById("app"));
-root.render(<App />);
+const initializeApp = () => {
+  const container = document.getElementById("app");
+  if (container) {
+    // Use window.ReactDOM to ensure it's picked up from the CDN script
+    const dom = window.ReactDOM || ReactDOM;
+    if (dom && dom.createRoot) {
+      const root = dom.createRoot(container);
+      root.render(<AppContainer />);
+    } else {
+      console.error("ReactDOM not found! Make sure React scripts are loaded.");
+    }
+  }
+};
+
+// Start initialization
+if (document.readyState === 'complete') {
+  initializeApp();
+} else {
+  window.addEventListener('load', initializeApp);
+}

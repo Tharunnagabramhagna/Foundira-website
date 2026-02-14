@@ -23,8 +23,15 @@ function IntroAnimation({ onComplete }) {
         const t2 = setTimeout(() => setStage(2), 1500);
         const t3 = setTimeout(() => {
             setStage(3);
-            if (onComplete) onComplete();
-            else history.replace('/login');
+            if (onComplete) {
+                onComplete();
+            } else {
+                if (window.location.hash) {
+                    window.location.hash = "#/login";
+                } else {
+                    history.replace('/login');
+                }
+            }
         }, 3500);
 
         return () => {
