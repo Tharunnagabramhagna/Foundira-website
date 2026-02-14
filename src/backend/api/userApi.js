@@ -165,28 +165,29 @@
      * Generate random avatar using DiceBear API
      */
     async function generateRandomAvatar(email) {
-        // List of curated "nice" and friendly avatar styles
+        // List of curated "nice" 2D cartoon styles
         const styles = [
-            'avataaars',          // Classic clean vector people
-            'notionists',         // Notion-style characters
-            'notionists-neutral', // Notion-style (simpler)
-            'adventurer-neutral', // Friendly soft style
-            'lorelei',            // Artistic portraits
-            'lorelei-neutral',    // Artistic portraits (simpler)
+            'avataaars',          // Best for cartoon look
             'micah',              // Clean sketch style
-            'open-peeps',         // Hand-drawn style
-            'personas',           // Modern flat style
-            'miniavs'             // Cute simple avatars
+            'bottts',             // Cute robots (friendly)
+            'personas'            // Flat modern style
         ];
 
         // Pick a random style
         const randomStyle = styles[Math.floor(Math.random() * styles.length)];
 
-        // Create a unique seed based on email + timestamp + random number
+        // Create a unique seed
         const uniqueSeed = (email || 'user') + Date.now() + Math.random().toString(36).substring(7);
 
-        // Construct the URL
-        const url = `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${uniqueSeed}`;
+        // Curated "nice" pastel background colors (Blues, Purples, Teals, Soft Reds)
+        const backgroundColors = [
+            'b6e3f4', 'c0aede', 'd1d4f9', 'ffdfbf', 'ffd5dc', 'c1f0c1', 'e0e0e0', 'ffe5f1'
+        ];
+        const randomBg = backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+
+        // Construct the URL with background color
+        // Using 'backgroundColor' parameter supported by many DiceBear styles (especially v7+)
+        const url = `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${uniqueSeed}&backgroundColor=${randomBg}`;
 
         // Save to profile photos database
         const normalizedEmail = email ? email.toLowerCase().trim() : 'temp_user';
