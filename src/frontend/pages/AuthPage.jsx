@@ -6,7 +6,7 @@ function AuthPage({ mode = "login", onSuccess }) {
     const Form = mode === "signup" ? window.Signup : window.Login;
     const images = useMemo(
         () => [
-            "https://chatgpt.com/backend-api/estuary/content?id=file_00000000c8e0720986b65e6c094560b8&ts=491966&p=fs&cid=1&sig=ba4c12d438f1c082a602e1c5be0c061d08b8fd13a5f16f840116ccdf51ca3af1&v=0",
+            "./public/images/foundira_logo_full.png",
         ],
         []
     );

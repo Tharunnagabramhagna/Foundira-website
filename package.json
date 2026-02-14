@@ -1,0 +1,14 @@
+{
+  "name": "foundira-hackathon",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": "https://tharunnagabramhagna.github.io/foundira.hackthon",
+  "description": "Smart Lost & Found Connect",
+  "scripts": {
+    "start": "npx http-server .",
+    "build": "echo 'No build step required. This is a static HTML/JS app.' && echo 'Ready for deployment.'",
+    "deploy": "echo 'Push your changes to GitHub to deploy to GitHub Pages.'"
+  },
+  "author": "Tharun Nagabramhagna",
+  "license": "MIT"
+}
