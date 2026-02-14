@@ -1,12 +1,16 @@
 const { useMemo } = React;
 
 function AuthPage({ mode = "login", onSuccess }) {
+
     const ImageSlider = window.ImageSlider;
     const LogoHeader = window.LogoHeader;
     const Form = mode === "signup" ? window.Signup : window.Login;
+
     const images = useMemo(
         () => [
-            "./public/images/foundira_logo_full.png",
+            "public/images/foundira_slide_1.png",
+            "public/images/foundira_slide_2.png",
+            "public/images/foundira_slide_3.png",
         ],
         []
     );
@@ -14,7 +18,7 @@ function AuthPage({ mode = "login", onSuccess }) {
     return (
         <div className="mx-auto max-w-6xl px-4 py-8 md:py-12 transition-colors duration-300">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 items-center">
-                <section>
+                <section className="h-full flex items-center justify-center">
                     <ImageSlider images={images} />
                 </section>
                 <section aria-labelledby="app-title" className="w-full">

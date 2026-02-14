@@ -15,7 +15,7 @@ function LogoHeader() {
           style={{ animation: "logoIntro 600ms ease-out both" }}
         >
           <img
-            src="./public/images/foundira_icon.png"
+            src="public/images/foundira_icon.png"
             alt="Foundira"
             className="w-8 h-8 md:w-10 md:h-10 rounded-lg object-contain"
           />
