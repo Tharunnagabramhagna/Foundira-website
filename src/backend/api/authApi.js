@@ -94,6 +94,19 @@
         return { status: "error", message: "Email already registered" };
       }
 
+      // Generate random avatar
+      let avatarUrl = "";
+      if (window.UserApi && window.UserApi.generateRandomAvatar) {
+        try {
+          // This returns a URL and also caches it in photoDB
+          avatarUrl = await window.UserApi.generateRandomAvatar(email);
+        } catch (e) {
+          console.error("Failed to generate avatar during signup", e);
+          // Fallback if API fails
+          avatarUrl = `https://ui-avatars.com/api/?name=${payload.name}&background=random`;
+        }
+      }
+
       // Store user with encoded password
       db[email] = {
         name: payload.name || "User",
@@ -102,6 +115,7 @@
         yearOfStudy: payload.yearOfStudy || "1st",
         collegeName: payload.collegeName || "Foundira University",
         gender: payload.gender || "Not Specified",
+        avatar: avatarUrl,
         createdAt: new Date().toISOString()
       };
 
@@ -166,7 +180,9 @@
         email: user.email,
         yearOfStudy: user.yearOfStudy,
         collegeName: user.collegeName,
-        gender: user.gender
+        gender: user.gender,
+        avatar: user.avatar,
+        createdAt: user.createdAt
       }
     };
   }
