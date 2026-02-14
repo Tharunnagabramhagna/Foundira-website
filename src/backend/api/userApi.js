@@ -165,34 +165,18 @@
      * Generate random avatar using DiceBear API
      */
     async function generateRandomAvatar(email) {
-        // List of diverse avatar styles supported by DiceBear
+        // List of curated "nice" and friendly avatar styles
         const styles = [
-            'adventurer',
-            'adventurer-neutral',
-            'avataaars',
-            'big-ears',
-            'big-ears-neutral',
-            'big-smile',
-            'bottts',
-            'bottts-neutral',
-            'croodles',
-            'croodles-neutral',
-            'fun-emoji',
-            'icons',
-            'identicon',
-            'initials',
-            'lorelei',
-            'lorelei-neutral',
-            'micah',
-            'miniavs',
-            'notionists',
-            'notionists-neutral',
-            'open-peeps',
-            'personas',
-            'pixel-art',
-            'pixel-art-neutral',
-            'shapes',
-            'thumbs'
+            'avataaars',          // Classic clean vector people
+            'notionists',         // Notion-style characters
+            'notionists-neutral', // Notion-style (simpler)
+            'adventurer-neutral', // Friendly soft style
+            'lorelei',            // Artistic portraits
+            'lorelei-neutral',    // Artistic portraits (simpler)
+            'micah',              // Clean sketch style
+            'open-peeps',         // Hand-drawn style
+            'personas',           // Modern flat style
+            'miniavs'             // Cute simple avatars
         ];
 
         // Pick a random style
