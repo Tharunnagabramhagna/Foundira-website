@@ -15,7 +15,7 @@ function LogoHeader() {
           style={{ animation: "logoIntro 600ms ease-out both" }}
         >
           <img
-            src="/public/images/foundira_icon.png"
+            src="https://chatgpt.com/backend-api/estuary/content?id=file_00000000c8e0720986b65e6c094560b8&ts=491966&p=fs&cid=1&sig=ba4c12d438f1c082a602e1c5be0c061d08b8fd13a5f16f840116ccdf51ca3af1&v=0"
             alt="Foundira"
             className="w-8 h-8 md:w-10 md:h-10 rounded-lg object-contain"
           />
