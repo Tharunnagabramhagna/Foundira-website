@@ -165,22 +165,62 @@
      * Generate random avatar using DiceBear API
      */
     async function generateRandomAvatar(email) {
-        const seed = email || Date.now();
-        const style = "avataaars"; // or 'adventurer', 'bottts', 'personas'
-        const url = `https://api.dicebear.com/7.x/${style}/svg?seed=${seed}`;
+        // List of diverse avatar styles supported by DiceBear
+        const styles = [
+            'adventurer',
+            'adventurer-neutral',
+            'avataaars',
+            'big-ears',
+            'big-ears-neutral',
+            'big-smile',
+            'bottts',
+            'bottts-neutral',
+            'croodles',
+            'croodles-neutral',
+            'fun-emoji',
+            'icons',
+            'identicon',
+            'initials',
+            'lorelei',
+            'lorelei-neutral',
+            'micah',
+            'miniavs',
+            'notionists',
+            'notionists-neutral',
+            'open-peeps',
+            'personas',
+            'pixel-art',
+            'pixel-art-neutral',
+            'shapes',
+            'thumbs'
+        ];
+
+        // Pick a random style
+        const randomStyle = styles[Math.floor(Math.random() * styles.length)];
+
+        // Create a unique seed based on email + timestamp + random number
+        const uniqueSeed = (email || 'user') + Date.now() + Math.random().toString(36).substring(7);
+
+        // Construct the URL
+        const url = `https://api.dicebear.com/7.x/${randomStyle}/svg?seed=${uniqueSeed}`;
 
         // Save to profile photos database
-        const normalizedEmail = email.toLowerCase().trim();
-        const photoDB = getPhotoDB();
-        photoDB[normalizedEmail] = url;
-        savePhotoDB(photoDB);
+        const normalizedEmail = email ? email.toLowerCase().trim() : 'temp_user';
 
-        // Also update user database
-        const userDB = getUserDB();
-        if (userDB[normalizedEmail]) {
-            userDB[normalizedEmail].avatar = url;
-            userDB[normalizedEmail].updatedAt = new Date().toISOString();
-            saveUserDB(userDB);
+        if (email) {
+            const photoDB = getPhotoDB();
+            photoDB[normalizedEmail] = url;
+            savePhotoDB(photoDB);
+
+            // Also update user database
+            const userDB = getUserDB();
+            if (userDB[normalizedEmail]) {
+                const user = userDB[normalizedEmail];
+                user.avatar = url;
+                user.updatedAt = new Date().toISOString();
+                userDB[normalizedEmail] = user; // Ensure the object is updated in the map
+                saveUserDB(userDB);
+            }
         }
 
         return url;
