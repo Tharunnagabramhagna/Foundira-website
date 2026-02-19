@@ -12,7 +12,20 @@ function Profile() {
     // Load user stats on mount
     useEffect(() => {
         loadUserStats();
+        checkAndGenerateAvatar();
     }, []);
+
+    const checkAndGenerateAvatar = async () => {
+        if (!user?.avatar && window.UserApi) {
+            try {
+                // Generate silently if missing
+                const url = await window.UserApi.generateRandomAvatar(user.email);
+                updateProfile({ avatar: url });
+            } catch (e) {
+                console.error("Failed to auto-generate avatar", e);
+            }
+        }
+    };
 
     const loadUserStats = async () => {
         if (window.UserApi && user?.email) {

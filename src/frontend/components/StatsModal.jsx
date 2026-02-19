@@ -69,12 +69,12 @@ function StatsModal({ type, onClose }) {
             onClick={onClose}
         >
             <div
-                className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden animate-scale-in"
+                className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] flex flex-col overflow-hidden animate-scale-in mx-4"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Header */}
+                {/* Header - Fixed at Top */}
                 <div
-                    className="p-6 text-white"
+                    className="p-6 text-white shrink-0"
                     style={{
                         background: content.color === 'rose' ? 'linear-gradient(to right, #f43f5e, #e11d48)' :
                             content.color === 'emerald' ? 'linear-gradient(to right, #10b981, #059669)' :
@@ -100,8 +100,8 @@ function StatsModal({ type, onClose }) {
                     </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-6 overflow-y-auto max-h-[calc(80vh-120px)]">
+                {/* Content - Scrollable Area */}
+                <div className="p-6 overflow-y-auto flex-1 custom-scrollbar">
                     {content.items.length === 0 ? (
                         <div className="text-center py-12 text-slate-400">
                             <p>No items to display</p>
@@ -111,30 +111,35 @@ function StatsModal({ type, onClose }) {
                             {content.items.map((item) => (
                                 <div
                                     key={item.id}
-                                    className="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-purple-400 dark:hover:border-purple-500 transition-colors"
+                                    className="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors group"
                                 >
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            <h3 className="font-semibold text-slate-800 dark:text-white">{item.name}</h3>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400">
-                                                {item.category || item.score}
-                                            </p>
-                                        </div>
-                                        <span className="text-xs text-slate-400 dark:text-slate-500">{item.date}</span>
+                                    <div>
+                                        <h3 className="font-semibold text-slate-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{item.name}</h3>
+                                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                                            {item.category || item.score}
+                                        </p>
                                     </div>
+                                    <span className="text-xs font-medium text-slate-400 dark:text-slate-500 bg-white dark:bg-slate-800 px-2 py-1 rounded-lg border border-slate-100 dark:border-slate-700">
+                                        {item.date}
+                                    </span>
                                 </div>
                             ))}
                         </div>
                     )}
                 </div>
 
-                {/* Footer */}
-                <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+                {/* Footer - Fixed at Bottom */}
+                <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 shrink-0">
                     <button
                         onClick={onClose}
-                        className="w-full py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors"
+                        className={`w-full py-3 text-white rounded-xl font-medium transition-all shadow-lg active:scale-[0.98] ${content.color === 'rose' ? 'bg-rose-500 hover:bg-rose-600 shadow-rose-500/20' :
+                                content.color === 'emerald' ? 'bg-emerald-500 hover:bg-emerald-600 shadow-emerald-500/20' :
+                                    content.color === 'indigo' ? 'bg-indigo-500 hover:bg-indigo-600 shadow-indigo-500/20' :
+                                        content.color === 'violet' ? 'bg-violet-500 hover:bg-violet-600 shadow-violet-500/20' :
+                                            'bg-slate-500 hover:bg-slate-600 shadow-slate-500/20'
+                            }`}
                     >
-                        Close
+                        Close Details
                     </button>
                 </div>
             </div>
