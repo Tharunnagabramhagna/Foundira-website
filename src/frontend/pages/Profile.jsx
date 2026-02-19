@@ -58,7 +58,7 @@ function Profile() {
             const url = await window.UserApi.generateRandomAvatar(user.email);
             // Update user context
             updateProfile({ avatar: url });
-            setMessage("✅ Avatar generated successfully!");
+            setMessage("Profile updated successfully");
             setTimeout(() => setMessage(""), 3000);
         } catch (error) {
             setMessage("❌ Failed to generate avatar");
@@ -99,11 +99,13 @@ function Profile() {
         <div className="animate-fade-in space-y-6 max-w-4xl mx-auto">
             {/* Success/Error Message */}
             {message && (
-                <div className={`fixed top-20 right-4 z-50 px-6 py-3 rounded-lg shadow-lg animate-fade-in ${message.startsWith('✅')
-                        ? 'bg-emerald-500 text-white'
-                        : 'bg-rose-500 text-white'
-                    }`}>
-                    {message}
+                <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-full shadow-2xl animate-fade-in-up">
+                    {message.toLowerCase().includes('error') || message.toLowerCase().includes('failed') ? (
+                        <svg className="w-5 h-5 text-rose-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    ) : (
+                        <svg className="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                    )}
+                    <span>{message}</span>
                 </div>
             )}
 
@@ -113,9 +115,9 @@ function Profile() {
                 <div className="relative flex flex-col md:flex-row items-end md:items-center gap-6 mt-12 mb-6 px-4">
                     {/* Profile Photo with Upload */}
                     <div className="relative">
-                        <div className="group relative w-32 h-32 rounded-full border-4 border-white dark:border-slate-800 bg-slate-200 overflow-hidden shadow-xl">
+                        <div className="group relative w-[120px] h-[120px] rounded-2xl border-4 border-white dark:border-slate-800 bg-slate-200 overflow-hidden shadow-xl">
                             <img
-                                src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=random&size=200&t=${Date.now()}`}
+                                src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=0D8ABC&color=fff`}
                                 alt="Profile"
                                 className="w-full h-full object-cover"
                             />

@@ -199,7 +199,7 @@ function Header({ onMenuClick, onSearch }) {
                     title="View Profile"
                 >
                     <img
-                        src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=random&t=${Date.now()}`}
+                        src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=0D8ABC&color=fff`}
                         alt="Profile"
                         className="w-full h-full object-cover rounded-full bg-slate-200"
                     />

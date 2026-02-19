@@ -15,7 +15,9 @@ function LoginRoute() {
       email: res.email || "user@example.com",
       collegeName: res.collegeName || "Foundira University",
       yearOfStudy: res.yearOfStudy || "1st",
-      gender: res.gender || "Not Specified"
+      gender: res.gender || "Not Specified",
+      avatar: res.avatar || "",
+      createdAt: res.createdAt
     };
     login(userData);
     history.push("/dashboard");

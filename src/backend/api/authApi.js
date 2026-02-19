@@ -146,8 +146,28 @@
       password: trimmedPassword
     });
 
+    // Helper to get local avatar
+    const getLocalAvatar = (email) => {
+      try {
+        const photos = JSON.parse(localStorage.getItem("foundira_profile_photos") || "{}");
+        return photos[email];
+      } catch (e) {
+        return null;
+      }
+    };
+
     // If webhook succeeds with proper verification, use it
     if (result && result.status === "success") {
+      // Check if we have a locally updated avatar that overrides the server one
+      const localAvatar = getLocalAvatar(trimmedEmail);
+      if (localAvatar) {
+        if (result.data) {
+          result.data.avatar = localAvatar;
+        } else {
+          // Handle flat response structure
+          result.avatar = localAvatar;
+        }
+      }
       return result;
     }
 
@@ -171,6 +191,9 @@
       };
     }
 
+    // Get local avatar if exists (prioritize specialized photo DB)
+    const localAvatar = getLocalAvatar(trimmedEmail);
+
     // Success - return user data without password
     return {
       status: "success",
@@ -181,7 +204,7 @@
         yearOfStudy: user.yearOfStudy,
         collegeName: user.collegeName,
         gender: user.gender,
-        avatar: user.avatar,
+        avatar: localAvatar || user.avatar,
         createdAt: user.createdAt
       }
     };
